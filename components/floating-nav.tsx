@@ -107,7 +107,7 @@ export function FloatingNav() {
                       style={{ background: "none", cursor: "pointer" }}
                       onClick={() => handleNavClick(item.href)}
                     >
-                      {item.name}
+                      {item.name !== "Resume" && item.name}
                     </button>
                   ))}
                 </div>
@@ -115,7 +115,7 @@ export function FloatingNav() {
               <a href="/VEERAVASUU.pdf" download>
                 <Button
                   size="sm"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
                 >
                   Resume
                 </Button>
