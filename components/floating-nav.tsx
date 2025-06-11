@@ -71,7 +71,7 @@ export function FloatingNav() {
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="relative px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg pointer-events-auto w-full flex items-center justify-center">
+        <div className="relative w-full px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg pointer-events-auto">
           <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50 pointer-events-none"></div>
           {isMobile ? (
             <div className="relative flex items-center justify-between w-full">
@@ -107,12 +107,19 @@ export function FloatingNav() {
                       style={{ background: "none", cursor: "pointer" }}
                       onClick={() => handleNavClick(item.href)}
                     >
-                      {item.name !== "Resume" && item.name}
+                      {item.name}
                     </button>
                   ))}
                 </div>
               </div>
-              <a href="/VEERAVASUU.pdf" download>
+              <a 
+                href="VEERAVASUU_CV.pdf" 
+                download
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.open('VEERAVASUU_CV.pdf', '_blank');
+                }}
+              >
                 <Button
                   size="sm"
                   className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
@@ -128,27 +135,41 @@ export function FloatingNav() {
       {/* Mobile menu */}
       {isMobile && (
         <motion.div
-          className={`fixed inset-0 z-40 bg-black/90 backdrop-blur-md ${isOpen ? "block" : "hidden"}`}
+          className={`fixed inset-0 z-40 ${isOpen ? "block" : "hidden"}`}
           initial={{ opacity: 0 }}
           animate={{ opacity: isOpen ? 1 : 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="flex flex-col items-center justify-center h-full">
-            {navItems.map((item) => (
-              <button
-                key={item.name}
-                className="px-8 py-4 text-2xl font-medium text-white hover:text-purple-400 transition-colors bg-transparent border-none outline-none"
-                style={{ background: "none", cursor: "pointer" }}
-                onClick={() => handleNavClick(item.href)}
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-md" onClick={() => setIsOpen(false)} />
+          <div className="fixed inset-0 z-50">
+            <div className="flex flex-col items-center justify-center min-h-screen py-20 space-y-6">
+              {navItems.map((item) => (
+                <button
+                  key={item.name}
+                  className="px-8 py-3 text-xl font-medium text-white hover:text-purple-400 transition-colors bg-transparent border-none outline-none"
+                  style={{ background: "none", cursor: "pointer" }}
+                  onClick={() => handleNavClick(item.href)}
+                >
+                  {item.name}
+                </button>
+              ))}
+              <a 
+                href="VEERAVASUU_CV.pdf" 
+                download
+                className="w-full flex justify-center mt-6"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.open('VEERAVASUU_CV.pdf', '_blank');
+                }}
               >
-                {item.name}
-              </button>
-            ))}
-            <a href="/VEERAVASUU.pdf" download className="w-full flex justify-center">
-              <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 w-44">
-                Resume
-              </Button>
-            </a>
+                <Button 
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 w-44 text-white"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Download Resume
+                </Button>
+              </a>
+            </div>
           </div>
         </motion.div>
       )}

@@ -43,7 +43,7 @@ function FloatingNav() {
     { name: "Achievements", href: "#achievements" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
-    { name: "Resume", href: "/VEERAVASUU.pdf", download: true },
+    { name: "Resume", href: "/VEERAVASUU_CV.pdf", download: true },
   ]
 
   const handleNavClick = () => {
@@ -95,10 +95,10 @@ function FloatingNav() {
                 {item.name}
               </Link>
             ))}
-            <a href="/VEERAVASUU.pdf" download>
+            <a href="/VEERAVASUU_CV.pdf" download="VEERAVASUU_CV.pdf" className="w-full flex justify-center">
               <Button
                 size="sm"
-                className="ml-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap"
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
               >
                 Resume
               </Button>
@@ -276,8 +276,15 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8">
-                  <a href="/VEERAVASUU.pdf" download>
-                    <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                  <a 
+                    href="VEERAVASUU_CV.pdf" 
+                    download
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.open('VEERAVASUU_CV.pdf', '_blank');
+                    }}
+                  >
+                    <Button className="mt-6 bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
                   </a>
                 </div>
               </GlassmorphicCard>
