@@ -1,5 +1,10 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowRight, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowRight, Github, Linkedin, Mail, Twitter, Trophy, Menu, X } from "lucide-react"
+import Image from "next/image"
 
 import { Button } from "@/components/ui/button"
 import { ProjectCard } from "@/components/project-card"
@@ -7,11 +12,103 @@ import { SkillBadge } from "@/components/skill-badge"
 import { Timeline } from "@/components/timeline"
 import { ContactForm } from "@/components/contact-form"
 import { CreativeHero } from "@/components/creative-hero"
-import { FloatingNav } from "@/components/floating-nav"
+import { useMobile } from "@/hooks/use-mobile"
 import { MouseFollower } from "@/components/mouse-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { SectionHeading } from "@/components/section-heading"
 import { GlassmorphicCard } from "@/components/glassmorphic-card"
+
+function FloatingNav() {
+  const [isVisible, setIsVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const isMobile = useMobile()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsVisible(true)
+      } else {
+        setIsVisible(false)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  const navItems = [
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Achievements", href: "#achievements" },
+    { name: "Experience", href: "#experience" },
+    { name: "Contact", href: "#contact" },
+    { name: "Resume", href: "/VEERAVASUU.pdf", download: true },
+  ]
+
+  const handleNavClick = () => {
+    if (isMobile) {
+      setIsOpen(false)
+    }
+  }
+
+  return (
+    <motion.div
+      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95vw] max-w-5xl transition-opacity duration-300 ${
+        isVisible ? "opacity-100" : "opacity-70 hover:opacity-100"
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="relative px-15 py-2 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg overflow-visible min-w-fit">
+        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50"></div>
+
+        {isMobile ? (
+          <div className="relative flex items-center justify-between">
+            <Link href="/" className="font-bold text-lg">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Vasuu</span>
+              <span className="text-white">Nakka</span>
+            </Link>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-zinc-400 hover:text-white hover:bg-zinc-700/50"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
+        ) : (
+          <div className="relative flex items-center gap-4">
+            <Link href="/" className="font-bold text-lg mr-4">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Veera</span>
+              <span className="text-white">Vasuu</span>
+            </Link>
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                className="px-3 py-1 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
+                onClick={handleNavClick}
+              >
+                {item.name}
+              </Link>
+            ))}
+            <a href="/VEERAVASUU.pdf" download>
+              <Button
+                size="sm"
+                className="ml-4 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap"
+              >
+                Resume
+              </Button>
+            </a>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  )
+}
 
 export default function Portfolio() {
   return (
@@ -32,19 +129,16 @@ export default function Portfolio() {
           <div className="space-y-6">
             <div className="inline-block">
               <div className="relative px-3 py-1 text-sm font-medium rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4">
-                <span className="relative z-10">Software Engineer & Creative Developer</span>
+                <span className="relative z-10">Android Developer & Application Developer</span>
                 <span className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 animate-pulse"></span>
               </div>
             </div>
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               <span className="block">Hi, I'm</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                Shine Kyaw Kyaw Aung
+                Veera vasuu Nakka
               </span>
             </h1>
-            <p className="text-xl text-zinc-400 max-w-[600px]">
-              I craft exceptional digital experiences with code, creativity, and a passion for innovation.
-            </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <Button className="relative overflow-hidden group bg-gradient-to-r from-purple-500 to-pink-500 border-0">
                 <span className="relative z-10 flex items-center">
@@ -60,7 +154,7 @@ export default function Portfolio() {
               </Button>
             </div>
             <div className="flex gap-4 pt-4">
-              <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <Link href="https://github.com/vasu-8424" target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -70,7 +164,7 @@ export default function Portfolio() {
                   <span className="sr-only">GitHub</span>
                 </Button>
               </Link>
-              <Link href="https://www.linkedin.com/in/shinekyawkyawaung/" target="_blank" rel="noopener noreferrer">
+              <Link href="https://www.linkedin.com/in/veera-vasu-3ab53623a/" target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -80,7 +174,7 @@ export default function Portfolio() {
                   <span className="sr-only">LinkedIn</span>
                 </Button>
               </Link>
-              <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <Link href="https://x.com/VeeraVasu743096" target="_blank" rel="noopener noreferrer">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -90,7 +184,7 @@ export default function Portfolio() {
                   <span className="sr-only">Twitter</span>
                 </Button>
               </Link>
-              <Link href="mailto:hello@example.com">
+              <Link href="mailto:vasuunakka@gmail.com">
                 <Button
                   variant="ghost"
                   size="icon"
@@ -124,53 +218,56 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="About Me" subtitle="My background and journey" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
-            <div className="relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch mt-16">
+            <div className="relative h-full">
               <div className="absolute -inset-4 rounded-xl bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-xl opacity-70"></div>
-              <div className="relative aspect-square rounded-xl overflow-hidden border border-zinc-800">
-                <img
-                  src="/placeholder.svg?height=600&width=600"
-                  alt="Shine Kyaw Kyaw Aung"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                <div className="absolute bottom-0 left-0 w-full p-6">
-                  <div className="flex items-center gap-2">
-                    <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                    <span className="text-sm font-medium">Available for work</span>
+              <div className="relative h-full rounded-xl overflow-hidden border border-zinc-800">
+                <div className="aspect-square">
+                  <Image
+                    src="/Veeravasu.jpg"
+                    alt="Veera vasuu"
+                    width={600}
+                    height={600}
+                    className="w-full h-full object-cover"
+                    priority
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-2 left-0 w-full px-6">
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                      <span className="text-sm font-medium">Available for work</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="space-y-6">
-              <GlassmorphicCard>
-                <p className="text-lg text-zinc-300">
-                  I'm a passionate software engineer with experience building web applications and digital products. I
-                  specialize in frontend development with React and Next.js, but I'm also comfortable working with
-                  backend technologies.
-                </p>
-                <p className="text-lg text-zinc-300 mt-4">
-                  My journey in tech started with a strong foundation in software development. I've worked with various
-                  companies to create intuitive, performant, and accessible digital experiences.
-                </p>
-                <p className="text-lg text-zinc-300 mt-4">
-                  When I'm not coding, you can find me exploring new technologies, contributing to open-source projects,
-                  and staying up-to-date with the latest industry trends.
-                </p>
+            <div className="h-full">
+              <GlassmorphicCard className="h-full flex flex-col">
+                <div className="flex-grow">
+                  <p className="text-lg text-zinc-300">
+                    As a Full Stack Developer, I excel in creating comprehensive web solutions using the MERN stack. My expertise spans from crafting intuitive user interfaces with React to implementing robust backend systems with Node.js and MongoDB, ensuring seamless end-to-end functionality.
+                  </p>
+                  <p className="text-lg text-zinc-300 mt-4">
+                    In the mobile development space, I've built a strong foundation as an Android Developer using React Native and Expo. My portfolio includes several successful applications that showcase my ability to deliver secure, performant, and user-friendly mobile experiences.
+                  </p>
+                  <p className="text-lg text-zinc-300 mt-4">
+                    I'm currently expanding my skill set by delving into Machine Learning and Data Structures & Algorithms. This pursuit reflects my dedication to growth and my ambition to create more sophisticated, efficient solutions that can make a real impact in the tech world.
+                  </p>
+                </div>
 
                 <div className="grid grid-cols-2 gap-4 mt-8">
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Name</div>
-                    <div className="font-medium">Shine Kyaw Kyaw Aung</div>
+                    <div className="font-medium">Veera vasuu Nakka</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium">hello@example.com</div>
+                    <div className="font-medium">vasuunakka@gmail.com</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Location</div>
-                    <div className="font-medium">Myanmar</div>
+                    <div className="font-medium">Kakinada</div>
                   </div>
                   <div className="space-y-1">
                     <div className="text-sm text-zinc-500">Availability</div>
@@ -179,7 +276,9 @@ export default function Portfolio() {
                 </div>
 
                 <div className="mt-8">
-                  <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                  <a href="/VEERAVASUU.pdf" download>
+                    <Button className="bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
+                  </a>
                 </div>
               </GlassmorphicCard>
             </div>
@@ -205,10 +304,10 @@ export default function Portfolio() {
             <SkillBadge name="Node.js" level={80} />
             <SkillBadge name="HTML/CSS" level={95} />
             <SkillBadge name="Tailwind CSS" level={90} />
-            <SkillBadge name="GraphQL" level={75} />
-            <SkillBadge name="PostgreSQL" level={70} />
-            <SkillBadge name="AWS" level={65} />
-            <SkillBadge name="Docker" level={60} />
+            <SkillBadge name="React Native" level={80} />
+            <SkillBadge name="MongoDB" level={90} />
+            <SkillBadge name="Supabase" level={65} />
+            <SkillBadge name="Postman" level={60} />
             <SkillBadge name="Git" level={85} />
           </div>
         </div>
@@ -226,53 +325,118 @@ export default function Portfolio() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
             <ProjectCard
-              title="E-commerce Platform"
-              description="A full-stack e-commerce platform built with Next.js, Stripe, and Prisma."
-              tags={["Next.js", "TypeScript", "Prisma", "Stripe"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
+              title="Women safety app"
+              description="Women safety app is a mobile application that helps women to stay safe by providing emergency services and location sharing."
+              tags={["React Native", "TypeScript", "Android", "MongoDB"]}
+              image="/image.png?height=400&width=600"
+              demoUrl="https://expo.dev/artifacts/eas/4z66QsBTYyBVm7uZdSQBLN.apk"
+              repoUrl="https://github.com/PNikhileswar/Women-Safety/tree/Nikhil"
             />
             <ProjectCard
-              title="Task Management App"
+              title="SRKR Social media app"
               description="A collaborative task management application with real-time updates."
-              tags={["React", "Firebase", "Tailwind CSS", "Redux"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
+              tags={["React native", "MongoDB", "TypeScript", "Expo"]}
+              image="/srkr.jpeg"
+              demoUrl="https://expo.dev/artifacts/eas/9ihhzw7SoZ1Uoqv64ApeW9.apk"
+              repoUrl="https://github.com/anilreddykota/srkrsm"
             />
             <ProjectCard
-              title="AI Content Generator"
-              description="An AI-powered content generation tool using OpenAI's GPT models."
-              tags={["Next.js", "OpenAI API", "Node.js", "MongoDB"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Fitness Tracker"
-              description="A mobile-first fitness tracking application with data visualization."
-              tags={["React Native", "TypeScript", "D3.js", "Firebase"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
-            />
-            <ProjectCard
-              title="Weather Dashboard"
-              description="A beautiful weather dashboard with forecasts and historical data."
-              tags={["React", "Weather API", "Chart.js", "Styled Components"]}
-              image="/placeholder.svg?height=400&width=600"
-              demoUrl="https://example.com"
-              repoUrl="https://github.com"
+              title="AI Fake news detection"
+              description="An AI-powered content generation tool using AI model."
+              tags={["Next.js", "Pandas", "python", "MongoDB"]}
+              image="/fakenews.jpeg"
+              demoUrl="https://github.com/vasu-8424/Fake-News-Detection"
+              repoUrl="https://github.com/vasu-8424/Fake-News-Detection"
             />
             <ProjectCard
               title="Portfolio Website"
               description="This portfolio website built with Next.js and Tailwind CSS."
-              tags={["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"]}
-              image="/placeholder.svg?height=400&width=600"
+              tags={["Next.js", "TypeScript", "css", "javascript"]}
+              image="/portfolio.jpg"
               demoUrl="https://example.com"
-              repoUrl="https://github.com"
+              repoUrl="https://github.com/vasu-8424/Portfolio"
             />
+            <ProjectCard
+              title="Emotion detection"
+              description="Emotion detection using deep learning model."
+              tags={["React", "python", "Chart.js", "Styled Components"]}
+              image="/emotion.jpg"
+              demoUrl="https://github.com/vasu-8424/emotion"
+              repoUrl="https://github.com/vasu-8424/emotion"
+            />
+            <ProjectCard
+              title="SRKR Cricket app"
+              description="This portfolio website built with Next.js and Tailwind CSS."
+              tags={["Node.js", "Tailwind CSS", "React", "javascript", "mongodb", "express", "socket.io"]}
+              image="/cricket.jpg"
+              demoUrl="https://github.com/mani4769/Arjuna"
+              repoUrl="https://github.com/mani4769/Arjuna"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section id="achievements" className="py-32 relative">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/3 right-1/3 w-64 h-64 bg-yellow-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+          <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10"></div>
+        </div>
+
+        <div className="container relative z-10">
+          <SectionHeading title="Achievements" subtitle="Hackathon Success Stories" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+            <GlassmorphicCard>
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mb-6">
+                  <Trophy className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">1st Prize - Vedic-Vision National level Hackathon 2k24</h3>
+                <p className="text-zinc-400 mb-4">Developed an innovative Cricket management website with Real time Updates</p>
+                <div className="flex flex-wrap gap-2">
+                  {["React Js", "MongoDB", "Node.js","Full stack Using MERN"].map((tag) => (
+                    <span key={tag} className="text-sm px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </GlassmorphicCard>
+
+            <GlassmorphicCard>
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mb-6">
+                  <Trophy className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">2nd Prize - Hackoverflow National level Hackathon 2k24</h3>
+                <p className="text-zinc-400 mb-4">Created a Women Safety App For Empowering women with real-time safety features</p>
+                <div className="flex flex-wrap gap-2">
+                  {["React native", "Typescript", "Expo","websocket"].map((tag) => (
+                    <span key={tag} className="text-sm px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </GlassmorphicCard>
+
+            <GlassmorphicCard>
+              <div className="p-6">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 flex items-center justify-center mb-6">
+                  <Trophy className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-bold mb-2">2nd Prize - SRKR Google dev challenge 2k25</h3>
+                <p className="text-zinc-400 mb-4">Developed a real-time Health care app with create awareness about health in undeserved community areas</p>
+                <div className="flex flex-wrap gap-2">
+                  {["React native", "Machine learning", "Typescript","API"].map((tag) => (
+                    <span key={tag} className="text-sm px-3 py-1 rounded-full bg-zinc-800 text-zinc-400">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </GlassmorphicCard>
           </div>
         </div>
       </section>
@@ -303,48 +467,48 @@ export default function Portfolio() {
         <div className="container relative z-10">
           <SectionHeading title="Get In Touch" subtitle="Let's work together" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-16">
-            <GlassmorphicCard>
-              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
-              <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch mt-16">
+            <GlassmorphicCard className="h-full">
+              <h3 className="text-xl font-bold mb-4">Contact Information</h3>
+              <div className="space-y-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
                     <Mail className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">Email</div>
-                    <div className="font-medium">hello@example.com</div>
+                    <div className="font-medium">vasuunakka@gmail.com</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
                     <Linkedin className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">LinkedIn</div>
-                    <div className="font-medium">linkedin.com/in/shinekyawkyawaung</div>
+                    <div className="font-medium">https://www.linkedin.com/in/veera-vasu-3ab53623a/</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-zinc-800 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center">
                     <Github className="h-5 w-5 text-purple-400" />
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">GitHub</div>
-                    <div className="font-medium">github.com/shinekyawkyawaung</div>
+                    <div className="font-medium">https://github.com/vasu-8424</div>
                   </div>
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-zinc-800">
-                <h4 className="text-lg font-medium mb-4">Current Status</h4>
-                <div className="flex items-center gap-2">
+              <div className="mt-6 pt-6 border-t border-zinc-800">
+                <h4 className="text-base font-medium mb-3">Current Status</h4>
+                <div className="flex items-center gap-2 mb-3">
                   <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
                   <span>Available for freelance work and full-time opportunities</span>
                 </div>
+                <p className="text-zinc-400 text-sm">I'm always interested in hearing about new projects and opportunities. Feel free to reach out!</p>
               </div>
             </GlassmorphicCard>
-
             <ContactForm />
           </div>
         </div>
@@ -355,15 +519,15 @@ export default function Portfolio() {
         <div className="container flex flex-col md:flex-row justify-between items-center gap-6">
           <div>
             <Link href="/" className="font-bold text-xl">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Shine</span>
-              <span className="text-white">KKA</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">VEERA</span>
+              <span className="text-white">VASUU</span>
             </Link>
             <p className="text-sm text-zinc-500 mt-2">
-              © {new Date().getFullYear()} Shine Kyaw Kyaw Aung. All rights reserved.
+              © {new Date().getFullYear()} Veera vasuu Nakka. All rights reserved.
             </p>
           </div>
           <div className="flex gap-4">
-            <Link href="https://github.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://github.com/vasu-8424" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -373,7 +537,7 @@ export default function Portfolio() {
                 <span className="sr-only">GitHub</span>
               </Button>
             </Link>
-            <Link href="https://www.linkedin.com/in/shinekyawkyawaung/" target="_blank" rel="noopener noreferrer">
+            <Link href="https://www.linkedin.com/in/veera-vasu-3ab53623a/" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -383,7 +547,7 @@ export default function Portfolio() {
                 <span className="sr-only">LinkedIn</span>
               </Button>
             </Link>
-            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://x.com/VeeraVasu743096" target="_blank" rel="noopener noreferrer">
               <Button
                 variant="ghost"
                 size="icon"
@@ -393,7 +557,7 @@ export default function Portfolio() {
                 <span className="sr-only">Twitter</span>
               </Button>
             </Link>
-            <Link href="mailto:hello@example.com">
+            <Link href="mailto:vasuunakka@gmail.com">
               <Button
                 variant="ghost"
                 size="icon"

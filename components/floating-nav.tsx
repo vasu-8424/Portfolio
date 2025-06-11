@@ -8,6 +8,14 @@ import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useMobile } from "@/hooks/use-mobile"
 
+function scrollToSection(href: string) {
+  const id = href.replace(/^#/, "")
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" })
+  }
+}
+
 export function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -21,20 +29,35 @@ export function FloatingNav() {
         setIsVisible(false)
       }
     }
-
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
+
+  // Prevent body scroll when mobile nav is open
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isMobile, isOpen])
 
   const navItems = [
     { name: "About", href: "#about" },
     { name: "Skills", href: "#skills" },
     { name: "Projects", href: "#projects" },
+    { name: "Achievements", href: "#achievements" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
   ]
 
-  const handleNavClick = () => {
+  const handleNavClick = (href: string) => {
+    if (href.startsWith("#")) {
+      scrollToSection(href)
+    }
     if (isMobile) {
       setIsOpen(false)
     }
@@ -43,19 +66,20 @@ export function FloatingNav() {
   return (
     <>
       <motion.div
-        className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 ${isVisible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full px-4 max-w-6xl flex justify-center pointer-events-none"
         initial={{ y: -100 }}
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="relative px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg">
-          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50"></div>
-
+        <div className="relative px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg pointer-events-auto w-full flex items-center justify-center">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50 pointer-events-none"></div>
           {isMobile ? (
-            <div className="relative flex items-center justify-between">
-              <Link href="/" className="font-bold text-lg">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Alex</span>
-                <span className="text-white">Chen</span>
+            <div className="relative flex items-center justify-between w-full">
+              <Link href="/" className="font-bold text-lg flex-shrink-0">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                  Vasuu
+                </span>
+                <span className="text-white">Nakka</span>
               </Link>
               <Button
                 variant="ghost"
@@ -67,27 +91,35 @@ export function FloatingNav() {
               </Button>
             </div>
           ) : (
-            <div className="relative flex items-center gap-1">
-              <Link href="/" className="font-bold text-lg mr-4">
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Alex</span>
-                <span className="text-white">Chen</span>
-              </Link>
-              {navItems.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="px-3 py-1 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-                  onClick={handleNavClick}
-                >
-                  {item.name}
+            <div className="relative flex items-center justify-between w-full">
+              <div className="flex items-center">
+                <Link href="/" className="font-bold text-lg mr-4 flex-shrink-0">
+                  <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
+                    Veera
+                  </span>
+                  <span className="text-white">Vasuu</span>
                 </Link>
-              ))}
-              <Button
-                size="sm"
-                className="ml-2 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0"
-              >
-                Resume
-              </Button>
+                <div className="flex items-center space-x-1">
+                  {navItems.map((item) => (
+                    <button
+                      key={item.name}
+                      className="px-3 py-1 text-sm font-medium text-zinc-400 hover:text-white transition-colors bg-transparent border-none outline-none"
+                      style={{ background: "none", cursor: "pointer" }}
+                      onClick={() => handleNavClick(item.href)}
+                    >
+                      {item.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <a href="/VEERAVASUU.pdf" download>
+                <Button
+                  size="sm"
+                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6"
+                >
+                  Resume
+                </Button>
+              </a>
             </div>
           )}
         </div>
@@ -103,18 +135,20 @@ export function FloatingNav() {
         >
           <div className="flex flex-col items-center justify-center h-full">
             {navItems.map((item) => (
-              <Link
+              <button
                 key={item.name}
-                href={item.href}
-                className="px-8 py-4 text-2xl font-medium text-white hover:text-purple-400 transition-colors"
-                onClick={handleNavClick}
+                className="px-8 py-4 text-2xl font-medium text-white hover:text-purple-400 transition-colors bg-transparent border-none outline-none"
+                style={{ background: "none", cursor: "pointer" }}
+                onClick={() => handleNavClick(item.href)}
               >
                 {item.name}
-              </Link>
+              </button>
             ))}
-            <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0">
-              Resume
-            </Button>
+            <a href="/VEERAVASUU.pdf" download className="w-full flex justify-center">
+              <Button className="mt-6 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 w-44">
+                Resume
+              </Button>
+            </a>
           </div>
         </motion.div>
       )}
