@@ -360,7 +360,7 @@ export default function Portfolio() {
               description="This portfolio website built with Next.js and Tailwind CSS."
               tags={["Next.js", "TypeScript", "css", "javascript"]}
               image="/portfolio.jpg"
-              demoUrl="https://example.com"
+              demoUrl="https://portfoliovasuu.vercel.app/"
               repoUrl="https://github.com/vasu-8424/Portfolio"
             />
             <ProjectCard
