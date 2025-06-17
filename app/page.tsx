@@ -18,6 +18,13 @@ import { ScrollProgress } from "@/components/scroll-progress"
 import { SectionHeading } from "@/components/section-heading"
 import { GlassmorphicCard } from "@/components/glassmorphic-card"
 
+function scrollToSection(sectionId: string) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 function FloatingNav() {
   const [isVisible, setIsVisible] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
@@ -140,7 +147,10 @@ export default function Portfolio() {
               </span>
             </h1>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button className="relative overflow-hidden group bg-gradient-to-r from-purple-500 to-pink-500 border-0">
+              <Button 
+                className="relative overflow-hidden group bg-gradient-to-r from-purple-500 to-pink-500 border-0"
+                onClick={() => scrollToSection('projects')}
+              >
                 <span className="relative z-10 flex items-center">
                   View Projects <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -149,6 +159,7 @@ export default function Portfolio() {
               <Button
                 variant="ghost"
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 text-white transition-all duration-300"
+                onClick={() => scrollToSection('contact')}
               >
                 Contact Me
               </Button>
@@ -336,7 +347,7 @@ export default function Portfolio() {
               description="Women safety app is a mobile application that helps women to stay safe by providing emergency services and location sharing."
               tags={["React Native", "TypeScript", "Android", "MongoDB"]}
               image="/image.png?height=400&width=600"
-              demoUrl="https://expo.dev/artifacts/eas/4z66QsBTYyBVm7uZdSQBLN.apk"
+              demoUrl="https://github.com/PNikhileswar/Women-Safety/tree/Nikhil"
               repoUrl="https://github.com/PNikhileswar/Women-Safety/tree/Nikhil"
             />
             <ProjectCard
@@ -344,7 +355,7 @@ export default function Portfolio() {
               description="A collaborative task management application with real-time updates."
               tags={["React native", "MongoDB", "TypeScript", "Expo"]}
               image="/srkr.jpeg"
-              demoUrl="https://expo.dev/artifacts/eas/9ihhzw7SoZ1Uoqv64ApeW9.apk"
+              demoUrl="https://github.com/anilreddykota/srkrsm"
               repoUrl="https://github.com/anilreddykota/srkrsm"
             />
             <ProjectCard
