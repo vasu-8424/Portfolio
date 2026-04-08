@@ -54,7 +54,7 @@ export default function Portfolio() {
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
               <span className="block">Hi, I'm</span>
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">
-                Veera vasuu Nakka
+                Veera Vasu Nakka
               </span>
             </h1>
             <div className="flex flex-wrap gap-4 pt-4">
