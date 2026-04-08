@@ -290,7 +290,7 @@ export default function Portfolio() {
               description="startup website for AI based solutions"
               tags={["React", "javascript", "css","vite"]}
               image="/image copy.png"
-              demoUrl="ww.rubyai.co.in"
+              demoUrl="www.rubyai.co.in"
               repoUrl="https://github.com/vasu-8424/Ruby_AI.git"
             />
             <ProjectCard
