@@ -7,14 +7,14 @@ const experiences = [
   {
     title: "React native developer Intern",
     company: "Yahweh Software Solution Co. ",
-    period: "2025 - Present",
+    period: "2025 MAY-2025 SEPT",
     description:
       "Developing the mobile application for the company using react native and typescript.",
   },
   {
     title: "Full Stack Developer",
-    company: "Blackbucks Technologies",
-    period: "2025 - Present",
+    company: "Staffarc",
+    period: "2026 - Present",
     description:
       "Developing responsive web applications using React and JavaScript. Collaborated with designers and backend engineers to deliver high-quality products.",
   },

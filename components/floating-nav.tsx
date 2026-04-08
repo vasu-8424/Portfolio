@@ -113,11 +113,11 @@ export function FloatingNav() {
                 </div>
               </div>
               <a 
-                href="VEERAVASUU_CV.pdf" 
+                href="/VEERA%20VASU%20NAKKA.pdf" 
                 download
                 onClick={(e) => {
                   e.preventDefault();
-                  window.open('VEERAVASUU_CV.pdf', '_blank');
+                  window.open('/VEERA%20VASU%20NAKKA.pdf', '_blank');
                 }}
               >
                 <Button
@@ -154,12 +154,12 @@ export function FloatingNav() {
                 </button>
               ))}
               <a 
-                href="VEERAVASUU_CV.pdf" 
+                href="/VEERA%20VASU%20NAKKA.pdf" 
                 download
                 className="w-full flex justify-center mt-6"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.open('VEERAVASUU_CV.pdf', '_blank');
+                  window.open('/VEERA%20VASU%20NAKKA.pdf', '_blank');
                 }}
               >
                 <Button 

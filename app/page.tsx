@@ -50,7 +50,7 @@ function FloatingNav() {
     { name: "Achievements", href: "#achievements" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
-    { name: "Resume", href: "/VEERAVASUU_CV.pdf", download: true },
+    { name: "Resume", href: "/VEERA%20VASU%20NAKKA.pdf", download: true },
   ]
 
   const handleNavClick = () => {
@@ -102,7 +102,7 @@ function FloatingNav() {
                 {item.name}
               </Link>
             ))}
-            <a href="/VEERAVASUU_CV.pdf" download="VEERAVASUU_CV.pdf" className="w-full flex justify-center">
+            <a href="/VEERA%20VASU%20NAKKA.pdf" download="VEERA VASU NAKKA.pdf" className="w-full flex justify-center">
               <Button
                 size="sm"
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
@@ -288,11 +288,11 @@ export default function Portfolio() {
 
                 <div className="mt-8">
                   <a 
-                    href="VEERAVASUU_CV.pdf" 
+                    href="/VEERA%20VASU%20NAKKA.pdf" 
                     download
                     onClick={(e) => {
                       e.preventDefault();
-                      window.open('VEERAVASUU_CV.pdf', '_blank');
+                      window.open('/VEERA%20VASU%20NAKKA.pdf', '_blank');
                     }}
                   >
                     <Button className="mt-6 bg-zinc-800 hover:bg-zinc-700 text-white">Download Resume</Button>
@@ -351,12 +351,12 @@ export default function Portfolio() {
               repoUrl="https://github.com/PNikhileswar/Women-Safety/tree/Nikhil"
             />
             <ProjectCard
-              title="SRKR Social media app"
-              description="A collaborative task management application with real-time updates."
-              tags={["React native", "MongoDB", "TypeScript", "Expo"]}
-              image="/srkr.jpeg"
-              demoUrl="https://github.com/anilreddykota/srkrsm"
-              repoUrl="https://github.com/anilreddykota/srkrsm"
+              title="Brent Street Pizza"
+              description="Full stack web application for pizza ordering and delivery."
+              tags={["React", "Node.js", "MongoDB","javascript"]}
+              image="/pizza.jpg"
+              demoUrl="https://brent-street-pizzzaaa.vercel.app/"
+              repoUrl="https://github.com/varuntejreddy03/Brent-Street-Pizza.git"
             />
             <ProjectCard
               title="AI Fake news detection"
@@ -375,20 +375,20 @@ export default function Portfolio() {
               repoUrl="https://github.com/vasu-8424/Portfolio"
             />
             <ProjectCard
-              title="Emotion detection"
-              description="Emotion detection using deep learning model."
-              tags={["React", "python", "Chart.js", "Styled Components"]}
-              image="/emotion.jpg"
-              demoUrl="https://github.com/vasu-8424/emotion"
-              repoUrl="https://github.com/vasu-8424/emotion"
+              title="Ruby Ai"
+              description="startup website for AI based solutions"
+              tags={["React", "javascript", "css","vite"]}
+              image="/image copy.png"
+              demoUrl="ww.rubyai.co.in"
+              repoUrl="https://github.com/vasu-8424/Ruby_AI.git"
             />
             <ProjectCard
-              title="SRKR Cricket app"
-              description="This portfolio website built with Next.js and Tailwind CSS."
+              title="Let Us Wed"
+              description="Let Us Wed is a comprehensive wedding planning platform designed to streamline the entire wedding organization process for couples. It serves as a one-stop solution for managing vendors, budgets, guest lists, and event schedules, ensuring a seamless and stress-free planning experience."
               tags={["Node.js", "Tailwind CSS", "React", "javascript", "mongodb", "express", "socket.io"]}
-              image="/cricket.jpg"
-              demoUrl="https://github.com/mani4769/Arjuna"
-              repoUrl="https://github.com/mani4769/Arjuna"
+              image="/letuswed.png"
+              demoUrl="https://let-us-wed.vercel.app/"
+              repoUrl="https://github.com/vasu-8424/let-us-wed.git"
             />
           </div>
         </div>
@@ -504,7 +504,7 @@ export default function Portfolio() {
                   </div>
                   <div>
                     <div className="text-sm text-zinc-500">LinkedIn</div>
-                    <div className="font-medium">https://www.linkedin.com/in/veera-vasu-3ab53623a/</div>
+                    <div className="font-medium">https://www.linkedin.com/in/veeravasu/</div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
