@@ -52,11 +52,14 @@ export function FloatingNav() {
     { name: "Achievements", href: "#achievements" },
     { name: "Experience", href: "#experience" },
     { name: "Contact", href: "#contact" },
+    { name: "Resume", href: "/VEERA%20VASU%20NAKKA.pdf", download: true },
   ]
 
   const handleNavClick = (href: string) => {
     if (href.startsWith("#")) {
       scrollToSection(href)
+    } else if (href.endsWith(".pdf")) {
+      window.open(href, "_blank")
     }
     if (isMobile) {
       setIsOpen(false)
@@ -66,12 +69,12 @@ export function FloatingNav() {
   return (
     <>
       <motion.div
-        className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-full px-4 max-w-6xl flex justify-center pointer-events-none"
+        className="fixed top-6 left-6 z-50 pointer-events-none"
         initial={{ y: -100 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="relative w-full px-4 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg pointer-events-auto">
+        <div className={`relative px-8 py-3 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg pointer-events-auto w-fit transition-opacity duration-300 ${isVisible ? "opacity-100" : "opacity-70 hover:opacity-100"}`}>
           <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50 pointer-events-none"></div>
           {isMobile ? (
             <div className="relative flex items-center justify-between w-full">
@@ -112,21 +115,7 @@ export function FloatingNav() {
                   ))}
                 </div>
               </div>
-              <a 
-                href="/VEERA%20VASU%20NAKKA.pdf" 
-                download
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open('/VEERA%20VASU%20NAKKA.pdf', '_blank');
-                }}
-              >
-                <Button
-                  size="sm"
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
-                >
-                  Resume
-                </Button>
-              </a>
+
             </div>
           )}
         </div>
@@ -153,22 +142,7 @@ export function FloatingNav() {
                   {item.name}
                 </button>
               ))}
-              <a 
-                href="/VEERA%20VASU%20NAKKA.pdf" 
-                download
-                className="w-full flex justify-center mt-6"
-                onClick={(e) => {
-                  e.preventDefault();
-                  window.open('/VEERA%20VASU%20NAKKA.pdf', '_blank');
-                }}
-              >
-                <Button 
-                  className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 w-44 text-white"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Download Resume
-                </Button>
-              </a>
+
             </div>
           </div>
         </motion.div>

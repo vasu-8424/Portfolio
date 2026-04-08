@@ -17,6 +17,7 @@ import { MouseFollower } from "@/components/mouse-follower"
 import { ScrollProgress } from "@/components/scroll-progress"
 import { SectionHeading } from "@/components/section-heading"
 import { GlassmorphicCard } from "@/components/glassmorphic-card"
+import { FloatingNav } from "@/components/floating-nav"
 
 function scrollToSection(sectionId: string) {
   const section = document.getElementById(sectionId);
@@ -25,97 +26,7 @@ function scrollToSection(sectionId: string) {
   }
 }
 
-function FloatingNav() {
-  const [isVisible, setIsVisible] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const isMobile = useMobile()
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsVisible(true)
-      } else {
-        setIsVisible(false)
-      }
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const navItems = [
-    { name: "About", href: "#about" },
-    { name: "Skills", href: "#skills" },
-    { name: "Projects", href: "#projects" },
-    { name: "Achievements", href: "#achievements" },
-    { name: "Experience", href: "#experience" },
-    { name: "Contact", href: "#contact" },
-    { name: "Resume", href: "/VEERA%20VASU%20NAKKA.pdf", download: true },
-  ]
-
-  const handleNavClick = () => {
-    if (isMobile) {
-      setIsOpen(false)
-    }
-  }
-
-  return (
-    <motion.div
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95vw] max-w-5xl transition-opacity duration-300 ${
-        isVisible ? "opacity-100" : "opacity-70 hover:opacity-100"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="relative px-15 py-2 rounded-full bg-zinc-800/80 backdrop-blur-md border border-zinc-700/50 shadow-lg overflow-visible min-w-fit">
-        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur opacity-50"></div>
-
-        {isMobile ? (
-          <div className="relative flex items-center justify-between">
-            <Link href="/" className="font-bold text-lg">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Vasuu</span>
-              <span className="text-white">Nakka</span>
-            </Link>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="text-zinc-400 hover:text-white hover:bg-zinc-700/50"
-              onClick={() => setIsOpen(!isOpen)}
-            >
-              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
-        ) : (
-          <div className="relative flex items-center gap-4">
-            <Link href="/" className="font-bold text-lg mr-4">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-600">Veera</span>
-              <span className="text-white">Vasuu</span>
-            </Link>
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-3 py-1 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
-                onClick={handleNavClick}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <a href="/VEERA%20VASU%20NAKKA.pdf" download="VEERA VASU NAKKA.pdf" className="w-full flex justify-center">
-              <Button
-                size="sm"
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-pink-500 hover:to-purple-500 border-0 whitespace-nowrap px-6 text-white transition-all duration-300"
-              >
-                Resume
-              </Button>
-            </a>
-          </div>
-        )}
-      </div>
-    </motion.div>
-  )
-}
 
 export default function Portfolio() {
   return (
