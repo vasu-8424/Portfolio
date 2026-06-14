@@ -146,7 +146,7 @@ export default function Portfolio() {
               <div className="relative h-full rounded-xl overflow-hidden border border-zinc-800">
                 <div className="aspect-square">
                   <Image
-                    src="/Veeravasu.jpg"
+                    src="/professionalimage.png"
                     alt="Veera vasuu"
                     width={600}
                     height={600}
